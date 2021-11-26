@@ -1,18 +1,19 @@
+import 'package:eat_together/routes/app_pages.dart';
+import 'package:eat_together/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(EatTogetherApp());
 }
 
-class MyApp extends StatelessWidget {
+class EatTogetherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: Routes.initial,
+      getPages: Pages.pages,
     );
   }
 }
