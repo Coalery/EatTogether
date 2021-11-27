@@ -1,5 +1,6 @@
-import 'package:eat_together/common/initialize.dart';
+import 'package:eat_together/initialize/initialize.dart';
 import 'package:eat_together/global/auth.controller.dart';
+import 'package:eat_together/initialize/initialize_failed.exception.dart';
 import 'package:eat_together/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  InitializeFailType? type;
+
   @override
   void initState() {
     super.initState();
@@ -21,7 +24,13 @@ class _SplashPageState extends State<SplashPage> {
           Get.offAndToNamed(Routes.login);
         }
       }
-    );
+    ).catchError((e) {
+      final exception = e as InitializeFailedException;
+      setState(() { type = exception.type; });
+    }, test: (exception) {
+      if(exception is! InitializeFailedException) return false;
+      return true;
+    });
   }
 
   @override
@@ -39,9 +48,27 @@ class _SplashPageState extends State<SplashPage> {
             width: 300,
           ),
           SizedBox(height: 80),
-          CircularProgressIndicator()
+          _InitializeStatus(type: type)
         ]
       )
+    );
+  }
+}
+
+class _InitializeStatus extends StatelessWidget {
+  final InitializeFailType? type;
+
+  _InitializeStatus({required this.type});
+
+  @override
+  Widget build(BuildContext context) {
+    if(type == null) return CircularProgressIndicator();
+
+    return Text(
+      type!.message,
+      style: TextStyle(
+        fontSize: 16
+      ),
     );
   }
 }
