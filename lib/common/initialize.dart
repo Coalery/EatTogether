@@ -5,6 +5,6 @@ import 'package:get/get.dart';
 class AppInitialize {
   Future<void> initialize() async {
     await Firebase.initializeApp();
-    Get.put(AuthController()).initialize();
+    await Get.put(AuthController()).initialize();
   }
 }
