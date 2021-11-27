@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.coalery.eat_together">
    <application
-        android:label="eat_together"
+        android:label="같이먹을래?"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
