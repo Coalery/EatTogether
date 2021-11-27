@@ -56,7 +56,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 onPressed: () async {
                   bool isSuccess = await controller.trySignInWithGoogle();
-                  if(isSuccess) Get.toNamed(Routes.home);
+                  if(isSuccess) Get.offAndToNamed(Routes.home);
                 },
               )
             ]
