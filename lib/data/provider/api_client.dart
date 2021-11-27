@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:eat_together/global/login.controller.dart';
+import 'package:eat_together/global/auth.controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +10,7 @@ class ApiClient {
   Future<Map<String, dynamic>> get(
     String path, {Map<String, String>? headers}
   ) async {
-    String? token = Get.find<LoginController>().token.value;
+    String? token = Get.find<AuthController>().token.value;
 
     if(token == null) return {};
     if(!path.startsWith('/')) path = '/$path';
@@ -28,7 +28,7 @@ class ApiClient {
   Future<Map<String, dynamic>> post(
     String path, {Map<String, String>? headers, Object? body, Encoding? encoding}
   ) async {
-    String? token = Get.find<LoginController>().token.value;
+    String? token = Get.find<AuthController>().token.value;
 
     if(token == null) return {};
     if(!path.startsWith('/')) path = '/$path';
@@ -48,7 +48,7 @@ class ApiClient {
   Future<Map<String, dynamic>> put(
     String path, {Map<String, String>? headers, Object? body, Encoding? encoding}
   ) async {
-    String? token = Get.find<LoginController>().token.value;
+    String? token = Get.find<AuthController>().token.value;
 
     if(token == null) return {};
     if(!path.startsWith('/')) path = '/$path';
@@ -68,7 +68,7 @@ class ApiClient {
   Future<Map<String, dynamic>> delete(
     String path, {Map<String, String>? headers, Object? body, Encoding? encoding}
   ) async {
-    String? token = Get.find<LoginController>().token.value;
+    String? token = Get.find<AuthController>().token.value;
 
     if(token == null) return {};
     if(!path.startsWith('/')) path = '/$path';
