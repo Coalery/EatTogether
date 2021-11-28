@@ -40,10 +40,10 @@ class Party {
       goalPrice: json['goalPrice'],
       state: json['state'],
       createdAt: DateTime.parse(json['createdAt']),
-      removedAt: DateTime.parse(json['removedAt'] ?? ''),
+      removedAt: DateTime.tryParse(json['removedAt'] ?? ''),
       usedFirstMessage: json['usedFirstMessage'],
-      usedSecondMessage: json['usedSecondMEssage'],
-      otherMessageUsedDate: DateTime.parse(json['otherMessageUsedDate'] ?? '')
+      usedSecondMessage: json['usedSecondMessage'],
+      otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? '')
     );
   }
 }

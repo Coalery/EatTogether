@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ApiClient {
-  static const String backendUrl = 'http://localhost:8000/';
+  static const String backendUrl = 'http://192.168.0.2:8000';
 
   Future<Map<String, dynamic>> get(
     String path, {Map<String, String>? headers}
