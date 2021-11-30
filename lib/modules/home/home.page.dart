@@ -19,10 +19,7 @@ class HomePage extends GetView<HomeController> {
             )
           ),
           centerTitle: true,
-          title: FittedBox(
-            fit: BoxFit.fitHeight,
-            child: Image.asset('assets/logo_transparent.png', width: 64)
-          )
+          title: Image.asset('assets/logo_transparent.png', width: 64)
         ),
         body: Obx(
           () => controller.isRefreshing.value ? _Loading() : _DataListView()
