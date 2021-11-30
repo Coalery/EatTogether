@@ -10,6 +10,20 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xFF9AD3BC),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0)
+            )
+          ),
+          centerTitle: true,
+          title: FittedBox(
+            fit: BoxFit.fitHeight,
+            child: Image.asset('assets/logo_transparent.png', width: 64)
+          )
+        ),
         body: Obx(
           () => controller.isRefreshing.value ? _Loading() : _DataListView()
         )
