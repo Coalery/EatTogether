@@ -19,6 +19,12 @@ class HomeController extends GetxController {
     getPartyNear500m();
   }
 
+  @override
+  void onClose() {
+    refreshController.dispose();
+    super.onClose();
+  }
+
   Future<void> getPartyNear500m() async {
     isRefreshing(true);
     Position curPosition = await Geolocator.getCurrentPosition();
