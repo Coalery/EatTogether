@@ -1,3 +1,5 @@
+import 'package:eat_together/data/model/user.model.dart';
+
 class Party {
   final int id;
   final String title;
@@ -12,6 +14,7 @@ class Party {
   final bool usedFirstMessage;
   final bool usedSecondMessage;
   final DateTime? otherMessageUsedDate;
+  final User host;
 
   Party({
     required this.id,
@@ -26,7 +29,8 @@ class Party {
     this.removedAt,
     required this.usedFirstMessage,
     required this.usedSecondMessage,
-    this.otherMessageUsedDate
+    this.otherMessageUsedDate,
+    required this.host
   });
 
   factory Party.fromJson(dynamic json) {
@@ -43,7 +47,8 @@ class Party {
       removedAt: DateTime.tryParse(json['removedAt'] ?? ''),
       usedFirstMessage: json['usedFirstMessage'],
       usedSecondMessage: json['usedSecondMessage'],
-      otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? '')
+      otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? ''),
+      host: User.fromJson(json['host'])
     );
   }
 }

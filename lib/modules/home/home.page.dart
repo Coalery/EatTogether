@@ -42,12 +42,13 @@ class _DataListView extends GetView<HomeController> {
     return SmartRefresher(
       controller: controller.refreshController,
       onRefresh: controller.getPartyNear500m,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: controller.data.length,
         itemBuilder: (_, idx) {
           Party curParty = controller.data[idx];
           return PartyItem(party: curParty);
         },
+        separatorBuilder: (_, idx) => Divider(height: 1),
       ),
     );
   }
