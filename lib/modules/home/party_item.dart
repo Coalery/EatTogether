@@ -2,6 +2,7 @@ import 'package:eat_together/common/util.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
 import 'package:eat_together/routes/app_routes.dart';
+import 'package:eat_together/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -76,15 +77,7 @@ class _HostInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 14.0,
-          backgroundImage: host.profileUrl != null
-            ? NetworkImage(host.profileUrl!)
-            : null,
-          child: host.profileUrl == null
-            ? Icon(Icons.person)
-            : null
-        ),
+        ProfileImage(profileUrl: host.profileUrl),
         SizedBox(width: 8.0),
         Text(host.name)
       ],

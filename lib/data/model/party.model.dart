@@ -1,3 +1,4 @@
+import 'package:eat_together/data/model/participant.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
 
 class Party {
@@ -15,6 +16,7 @@ class Party {
   final bool usedSecondMessage;
   final DateTime? otherMessageUsedDate;
   final User host;
+  final List<Participant> participants;
 
   Party({
     required this.id,
@@ -30,7 +32,8 @@ class Party {
     required this.usedFirstMessage,
     required this.usedSecondMessage,
     this.otherMessageUsedDate,
-    required this.host
+    required this.host,
+    this.participants = const []
   });
 
   factory Party.fromJson(dynamic json) {
