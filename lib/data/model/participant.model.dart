@@ -18,7 +18,7 @@ class Participant {
       id: json['id'],
       isSuccessAgree: json['isSuccessAgree'],
       amount: json['amount'],
-      user: User.fromJson(json['user'])
+      user: User.fromJson(json['participant'])
     );
   }
 }
