@@ -51,7 +51,10 @@ class Party {
       usedFirstMessage: json['usedFirstMessage'],
       usedSecondMessage: json['usedSecondMessage'],
       otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? ''),
-      host: User.fromJson(json['host'])
+      host: User.fromJson(json['host']),
+      participants: List.from(
+        json['participate'] ?? []
+      ).map((v) => Participant.fromJson(v)).toList()
     );
   }
 }
