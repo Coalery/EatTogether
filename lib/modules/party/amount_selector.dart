@@ -1,3 +1,4 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/global/auth.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class _AmountSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250 + MediaQuery.of(context).viewInsets.bottom,
+      height: 230 + MediaQuery.of(context).viewInsets.bottom,
       child: Column(
         children: [
           _Title(),
@@ -61,10 +62,10 @@ class _Title extends StatelessWidget {
 
 class _Body extends StatefulWidget {
   @override
-  __BodyState createState() => __BodyState();
+  _BodyState createState() => _BodyState();
 }
 
-class __BodyState extends State<_Body> {
+class _BodyState extends State<_Body> {
   final TextEditingController controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -94,20 +95,33 @@ class __BodyState extends State<_Body> {
                 int? parsedData = int.tryParse(data);
                 if(parsedData == null) return '정수로 입력해주세요.';
                 if(parsedData < 0) return '양의 정수로 입력해주세요.';
+                if(parsedData > auth.me.value!.point) return '충분한 포인트가 없습니다.';
 
                 return null;
               },
+              decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Constant.mainColor)
+                ),
+              ),
+              cursorColor: Constant.mainColor,
             ),
             SizedBox(height: 4),
-            TextButton(
-              onPressed: () {
-                if(formKey.currentState!.validate()) {
-                  Navigator.pop(context, int.parse(controller.text));
-                }
-              },
-              child: Text(
-                '완료',
-                style: TextStyle(color: Colors.black),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Constant.mainColor)
+                ),
+                onPressed: () {
+                  if(formKey.currentState!.validate()) {
+                    Navigator.pop(context, int.parse(controller.text));
+                  }
+                },
+                child: Text(
+                  '완료',
+                  style: TextStyle(color: Colors.white),
+                )
               )
             )
           ],
