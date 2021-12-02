@@ -1,3 +1,4 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/common/util.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
@@ -51,7 +52,7 @@ class PartyItem extends StatelessWidget {
                 Text(
                   toCurrencyString(party.goalPrice),
                   style: TextStyle(
-                    color: Color(0xFF9AD3BC),
+                    color: Constant.mainColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20
                   ),

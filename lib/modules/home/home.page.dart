@@ -1,3 +1,4 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/modules/home/home.controller.dart';
 import 'package:eat_together/modules/home/party_item.dart';
@@ -12,7 +13,7 @@ class HomePage extends GetView<HomeController> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF9AD3BC),
+          backgroundColor: Constant.mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.0),
