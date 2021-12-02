@@ -15,7 +15,7 @@ class Party {
   final bool usedFirstMessage;
   final bool usedSecondMessage;
   final DateTime? otherMessageUsedDate;
-  final User host;
+  final Participant host;
   final List<Participant> participants;
 
   Party({
@@ -51,7 +51,7 @@ class Party {
       usedFirstMessage: json['usedFirstMessage'],
       usedSecondMessage: json['usedSecondMessage'],
       otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? ''),
-      host: User.fromJson(json['host']),
+      host: Participant.fromJson(json['host']),
       participants: List.from(
         json['participate'] ?? []
       ).map((v) => Participant.fromJson(v)).toList()
@@ -64,7 +64,7 @@ class Party {
   bool get isCancel => state == "canceled";
 
   bool isHost(User user) {
-    return host.id == user.id;
+    return host.user.id == user.id;
   }
 
   bool isParticipated(User user) {

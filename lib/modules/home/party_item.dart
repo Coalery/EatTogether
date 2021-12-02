@@ -35,7 +35,7 @@ class PartyItem extends StatelessWidget {
                 SizedBox(height: 4),
                 Text(party.restuarant),
                 SizedBox(height: 12),
-                _HostInfo(host: party.host)
+                _HostInfo(host: party.host.user)
               ],
             ),
             Column(

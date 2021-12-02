@@ -161,7 +161,7 @@ class _ButtonForHost extends GetView<PartyController> {
     final User me = Get.find<AuthController>().me.value!;
     final Party party = controller.party.value!;
 
-    if(false) { // party.isParticipating
+    if(party.isParticipating) {
       return _buildWhenParticipating(party, me);
     } else {
       return _buildWhenAfterParticipate(party, me);

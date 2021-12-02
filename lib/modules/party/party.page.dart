@@ -1,7 +1,7 @@
 import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/common/util.dart';
+import 'package:eat_together/data/model/participant.model.dart';
 import 'package:eat_together/data/model/party.model.dart';
-import 'package:eat_together/data/model/user.model.dart';
 import 'package:eat_together/modules/party/button_panel.dart';
 import 'package:eat_together/modules/party/party.controller.dart';
 import 'package:eat_together/widgets/loading.dart';
@@ -132,11 +132,10 @@ class _ParticipantList extends GetView<PartyController> {
             ),
           ),
         ),
-        _ParticipantItem(user: party.host, amount: -1),
+        _ParticipantItem(participant: party.host, isHost: true),
         ...party.participants.map(
           (participant) => _ParticipantItem(
-            user: participant.user,
-            amount: participant.amount,
+            participant: participant,
           )
         ).toList()
       ],
@@ -145,12 +144,12 @@ class _ParticipantList extends GetView<PartyController> {
 }
 
 class _ParticipantItem extends StatelessWidget {
-  final User user;
-  final int amount;
+  final Participant participant;
+  final bool isHost;
 
   _ParticipantItem({
-    required this.user,
-    required this.amount
+    required this.participant,
+    this.isHost = false
   });
 
   @override
@@ -158,18 +157,22 @@ class _ParticipantItem extends StatelessWidget {
     return ListTile(
       leading: ProfileImage(
         radius: 16.0,
-        profileUrl: user.profileUrl,
+        profileUrl: participant.user.profileUrl,
       ),
       title: Text(
-        user.name
+        participant.user.name
       ),
-      trailing: Text(
-        amount == -1 ? '호스트' : toCurrencyString(amount),
+      subtitle: Text(
+        isHost ? '호스트' : toCurrencyString(participant.amount),
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Constant.mainColor,
+          fontSize: 12
         ),
-      )
+      ),
+      trailing: participant.isSuccessAgree
+        ? Icon(Icons.check, color: Constant.mainColor)
+        : null
     );
   }
 }
