@@ -167,7 +167,7 @@ class _ParticipantItem extends StatelessWidget {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Constant.mainColor,
-          fontSize: 12
+          fontSize: 14
         ),
       ),
       trailing: participant.isSuccessAgree
