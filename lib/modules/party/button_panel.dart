@@ -22,7 +22,7 @@ class PartyPageButtonPanel extends GetView<PartyController> {
     } else {
       result = _ButtonForNotParticipated(); 
     }
-    result = _ButtonForParticipated();
+    result = _ButtonForHost();
 
     return SizedBox(
       width: Get.width - 16.0 - 16.0 - 16.0 - 50.0,
@@ -88,11 +88,7 @@ class _ButtonForParticipated extends GetView<PartyController> {
       ),
       onPressed: () => controller.cancelParticipate,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          Constant.mainColor.withOpacity(
-            party.isParticipating ? 1.0 : 0.4
-          )
-        ),
+        backgroundColor: MaterialStateProperty.all(Constant.mainColor),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0)
@@ -159,18 +155,95 @@ class _ButtonForParticipated extends GetView<PartyController> {
   }
 }
 
-class _ButtonForHost extends StatelessWidget {
+class _ButtonForHost extends GetView<PartyController> {
   @override
   Widget build(BuildContext context) {
+    final User me = Get.find<AuthController>().me.value!;
+    final Party party = controller.party.value!;
+
+    if(false) { // party.isParticipating
+      return _buildWhenParticipating(party, me);
+    } else {
+      return _buildWhenAfterParticipate(party, me);
+    }
+  }
+
+  Widget _buildWhenParticipating(Party party, User me) {
     return TextButton(
-      child: Text(''),
-      onPressed: () {},
+      child: Text(
+        '모집 취소하기',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold
+        ),
+      ),
+      onPressed: () => controller.cancelParty,
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Constant.mainColor.withOpacity(
+            party.isParticipating ? 1.0 : 0.4
+          )
+        ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0)
           )
         )
+      ),
+    );
+  }
+
+  Widget _buildWhenAfterParticipate(Party party, User me) {
+    final bool isAgree = party.isSuccessAgreed(me);
+
+    return Row(
+      children: [
+        _buildMessageIconButton('ordered-food'),
+        SizedBox(width: 4.0),
+        _buildMessageIconButton('deliverer-picked-up'),
+        SizedBox(width: 4.0),
+        _buildMessageIconButton('come-out'),
+        SizedBox(width: 4.0),
+        Expanded(
+          child: SizedBox(
+            height: 40,
+            child: TextButton(
+              child: Text(
+                '성공 동의하기',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              onPressed: controller.agreeSuccess,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Constant.mainColor.withOpacity(
+                    isAgree ? 0.4 : 1.0
+                  )
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0)
+                  )
+                )
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMessageIconButton(String msgType) {
+    return CircleAvatar(
+      radius: 20.0,
+      backgroundColor: Constant.mainColor,
+      child: IconButton(
+        icon: Icon(Icons.message, color: Colors.white),
+        onPressed: () => controller.sendMessage(msgType)
       ),
     );
   }

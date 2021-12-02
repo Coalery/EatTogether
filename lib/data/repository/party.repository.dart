@@ -20,6 +20,10 @@ class PartyRepository {
     return client.put('/party/$partyId/message/$msgType');
   }
 
+  Future<dynamic> cancelParty(int partyId) {
+    return client.put('/party/$partyId');
+  }
+
   Future<dynamic> participate(int partyId, int amount) {
     return client.post('/participate/$partyId', body: { 'amount': amount });
   }

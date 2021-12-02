@@ -73,4 +73,11 @@ class PartyController extends GetxController {
     await partyRepository.cancelParticipate(party.value!.id);
     await getParty();
   }
+
+  Future<void> cancelParty() async {
+    final AuthController auth = Get.find<AuthController>();
+    if(!(party.value!.host.id != auth.me.value!.id)) return;
+    await partyRepository.cancelParty(party.value!.id);
+    Get.back();
+  }
 }
