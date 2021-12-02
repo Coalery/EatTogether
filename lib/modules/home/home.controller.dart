@@ -32,6 +32,7 @@ class HomeController extends GetxController {
       curPosition.latitude,
       curPosition.longitude
     );
+    print(response);
     List<dynamic> rawData = List.from(response['data']);
     data = rawData.map((rawParty) => Party.fromJson(rawParty)).toList();
     isRefreshing(false);

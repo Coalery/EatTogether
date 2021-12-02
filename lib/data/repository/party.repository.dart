@@ -11,4 +11,8 @@ class PartyRepository {
   Future<dynamic> getPartyNear500m(double latitude, double longitude) {
     return client.get('/party?latitude=$latitude&longitude=$longitude');
   }
+
+  Future<dynamic> participate(int amount) {
+    return client.post('/participate/$amount');
+  }
 }

@@ -1,5 +1,5 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/common/util.dart';
-import 'package:eat_together/data/model/participant.model.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
 import 'package:eat_together/modules/party/button_panel.dart';
@@ -15,7 +15,7 @@ class PartyPage extends GetView<PartyController> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFF9AD3BC),
+          backgroundColor: Constant.mainColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.0),
@@ -41,9 +41,7 @@ class _PartyDetail extends StatelessWidget {
     return ListView(
       children: [
         _PartyCommonInfo(),
-        Divider(height: 4, thickness: 4),
-        PartyPageButtonPanel(),
-        Divider(height: 4, thickness: 4),
+        Divider(height: 1, thickness: 1),
         _ParticipantList()
       ],
     );
@@ -102,11 +100,13 @@ class _PartyCommonInfo extends GetView<PartyController> {
               Text(
                 toCurrencyString(party.goalPrice),
                 style: TextStyle(
-                  color: Color(0xFF9AD3BC),
+                  color: Constant.mainColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 20
                 ),
-              )
+              ),
+              SizedBox(height: 16),
+              PartyPageButtonPanel(),
             ],
           )
         ],
@@ -163,14 +163,13 @@ class _ParticipantItem extends StatelessWidget {
       title: Text(
         user.name
       ),
-      trailing: amount == -1
-        ? Text('호스트')
-        : Text(
-            toCurrencyString(amount),
-            style: TextStyle(
-              color: Color(0xFF9AD3BC),
-            ),
-          )
+      trailing: Text(
+        amount == -1 ? '호스트' : toCurrencyString(amount),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Constant.mainColor,
+        ),
+      )
     );
   }
 }

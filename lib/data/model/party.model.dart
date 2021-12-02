@@ -57,4 +57,20 @@ class Party {
       ).map((v) => Participant.fromJson(v)).toList()
     );
   }
+
+  bool get isParticipating => state == "participating";
+  bool get isGatherComplete => state == "gather-complete";
+  bool get isSuccess => state == "success";
+  bool get isCancel => state == "canceled";
+
+  bool isHost(User user) {
+    return host.id == user.id;
+  }
+
+  bool isParticipated(User user) {
+    if(isHost(user)) return true;
+    return participants.where(
+      (participant) => participant.user.id == user.id
+    ).isNotEmpty;
+  }
 }
