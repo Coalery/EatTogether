@@ -1,3 +1,4 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/modules/login/login.controller.dart';
 import 'package:eat_together/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class LoginPage extends GetView<LoginController> {
       child: Scaffold(
         body: Container(
           width: double.infinity,
-          color: Color(0xFF9AD3BC),
+          color: Constant.mainColor,
           padding: EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,4 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/initialize/initialize.dart';
 import 'package:eat_together/global/auth.controller.dart';
 import 'package:eat_together/initialize/initialize_failed.exception.dart';
@@ -38,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        color: Color(0xFF9AD3BC),
+        color: Constant.mainColor,
         padding: EdgeInsets.all(24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

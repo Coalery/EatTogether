@@ -1,7 +1,11 @@
+import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/common/util.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
+import 'package:eat_together/routes/app_routes.dart';
+import 'package:eat_together/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PartyItem extends StatelessWidget {
   final Party party;
@@ -10,51 +14,55 @@ class PartyItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                party.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18
+    return GestureDetector(
+      child: Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  party.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
                 ),
-              ),
-              SizedBox(height: 4),
-              Text(party.restuarant),
-              SizedBox(height: 12),
-              _HostInfo(host: party.host)
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                untilTime(party.createdAt),
-                style: TextStyle(
-                  color: Colors.grey
+                SizedBox(height: 4),
+                Text(party.restuarant),
+                SizedBox(height: 12),
+                _HostInfo(host: party.host.user)
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  untilTime(party.createdAt),
+                  style: TextStyle(
+                    color: Colors.grey
+                  ),
                 ),
-              ),
-              SizedBox(height: 30.0),
-              Text('목표금액'),
-              Text(
-                toCurrencyString(party.goalPrice),
-                style: TextStyle(
-                  color: Color(0xFF9AD3BC),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20
-                ),
-              )
-            ],
-          ),
-        ],
+                SizedBox(height: 30.0),
+                Text('목표금액'),
+                Text(
+                  toCurrencyString(party.goalPrice),
+                  style: TextStyle(
+                    color: Constant.mainColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
+      onTap: () => Get.toNamed(Routes.party, arguments: party.id),
     );
   }
 }
@@ -70,15 +78,7 @@ class _HostInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 14.0,
-          backgroundImage: host.profileUrl != null
-            ? NetworkImage(host.profileUrl!)
-            : null,
-          child: host.profileUrl == null
-            ? Icon(Icons.person)
-            : null
-        ),
+        ProfileImage(profileUrl: host.profileUrl),
         SizedBox(width: 8.0),
         Text(host.name)
       ],

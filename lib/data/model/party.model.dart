@@ -1,3 +1,4 @@
+import 'package:eat_together/data/model/participant.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
 
 class Party {
@@ -14,7 +15,8 @@ class Party {
   final bool usedFirstMessage;
   final bool usedSecondMessage;
   final DateTime? otherMessageUsedDate;
-  final User host;
+  final Participant host;
+  final List<Participant> participants;
 
   Party({
     required this.id,
@@ -30,7 +32,8 @@ class Party {
     required this.usedFirstMessage,
     required this.usedSecondMessage,
     this.otherMessageUsedDate,
-    required this.host
+    required this.host,
+    this.participants = const []
   });
 
   factory Party.fromJson(dynamic json) {
@@ -39,8 +42,8 @@ class Party {
       title: json['title'],
       description: json['description'],
       restuarant: json['restuarant'],
-      meetLatitude: json['meetLatitude'],
-      meetLongitude: json['meetLongitude'],
+      meetLatitude: double.parse(json['meetLatitude']),
+      meetLongitude: double.parse(json['meetLongitude']),
       goalPrice: json['goalPrice'],
       state: json['state'],
       createdAt: DateTime.parse(json['createdAt']),
@@ -48,7 +51,34 @@ class Party {
       usedFirstMessage: json['usedFirstMessage'],
       usedSecondMessage: json['usedSecondMessage'],
       otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? ''),
-      host: User.fromJson(json['host'])
+      host: Participant.fromJson(json['host']),
+      participants: List.from(
+        json['participate'] ?? []
+      ).map((v) => Participant.fromJson(v)).toList()
     );
+  }
+
+  bool get isParticipating => state == "participating";
+  bool get isGatherComplete => state == "gather-complete";
+  bool get isSuccess => state == "success";
+  bool get isCancel => state == "canceled";
+
+  bool isHost(User user) {
+    return host.user.id == user.id;
+  }
+
+  bool isParticipated(User user) {
+    if(isHost(user)) return true;
+    return participants.where(
+      (participant) => participant.user.id == user.id
+    ).isNotEmpty;
+  }
+
+  bool isSuccessAgreed(User user) {
+    List<Participant> filtered = participants.where(
+      (part) => part.user.id == user.id
+    ).toList();
+    if(filtered.isEmpty) return false;
+    return filtered[0].isSuccessAgree;
   }
 }
