@@ -12,7 +12,19 @@ class PartyRepository {
     return client.get('/party?latitude=$latitude&longitude=$longitude');
   }
 
-  Future<dynamic> participate(int amount) {
-    return client.post('/participate/$amount');
+  Future<dynamic> agreeSuccess(int partyId) {
+    return client.put('/party/$partyId/success');
+  }
+
+  Future<dynamic> sendMessage(int partyId, String msgType) {
+    return client.put('/party/$partyId/message/$msgType');
+  }
+
+  Future<dynamic> participate(int partyId, int amount) {
+    return client.post('/participate/$partyId', body: { 'amount': amount });
+  }
+
+  Future<dynamic> cancelParticipate(int partyId) {
+    return client.delete('/participate/$partyId');
   }
 }

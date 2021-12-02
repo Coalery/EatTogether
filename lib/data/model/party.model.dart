@@ -73,4 +73,12 @@ class Party {
       (participant) => participant.user.id == user.id
     ).isNotEmpty;
   }
+
+  bool isSuccessAgreed(User user) {
+    List<Participant> filtered = participants.where(
+      (part) => part.user.id == user.id
+    ).toList();
+    if(filtered.isEmpty) return false;
+    return filtered[0].isSuccessAgree;
+  }
 }

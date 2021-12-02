@@ -22,7 +22,7 @@ class PartyPageButtonPanel extends GetView<PartyController> {
     } else {
       result = _ButtonForNotParticipated(); 
     }
-    result = _ButtonForNotParticipated(); 
+    result = _ButtonForParticipated();
 
     return SizedBox(
       width: Get.width - 16.0 - 16.0 - 16.0 - 50.0,
@@ -63,19 +63,98 @@ class _ButtonForNotParticipated extends GetView<PartyController> {
   }
 }
 
-class _ButtonForParticipated extends StatelessWidget {
+class _ButtonForParticipated extends GetView<PartyController> {
   @override
   Widget build(BuildContext context) {
+    final User me = Get.find<AuthController>().me.value!;
+    final Party party = controller.party.value!;
+
+    if(party.isParticipating) {
+      return _buildWhenParticipating(party, me);
+    } else {
+      return _buildWhenAfterParticipate(party, me);
+    }
+  }
+
+  Widget _buildWhenParticipating(Party party, User me) {
     return TextButton(
-      child: Text(''),
-      onPressed: () {},
+      child: Text(
+        '참가 취소하기',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold
+        ),
+      ),
+      onPressed: () => controller.cancelParticipate,
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(
+          Constant.mainColor.withOpacity(
+            party.isParticipating ? 1.0 : 0.4
+          )
+        ),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0)
           )
         )
       ),
+    );
+  }
+
+  Widget _buildWhenAfterParticipate(Party party, User me) {
+    final bool isAgree = party.isSuccessAgreed(me);
+
+    return Row(
+      children: [
+        Expanded(
+          child: TextButton(
+            child: Text(
+              '재촉하기',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            onPressed: () => controller.sendMessage('come-out'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Constant.mainColor),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                )
+              )
+            ),
+          ),
+        ),
+        SizedBox(width: 16.0),
+        Expanded(
+          child: TextButton(
+            child: Text(
+              '성공 동의',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            onPressed: controller.agreeSuccess,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Constant.mainColor.withOpacity(
+                  isAgree ? 0.4 : 1.0
+                )
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                )
+              )
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
