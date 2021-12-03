@@ -2,6 +2,7 @@ import 'package:eat_together/common/constant.dart';
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/modules/home/home.controller.dart';
 import 'package:eat_together/modules/home/party_item.dart';
+import 'package:eat_together/routes/app_routes.dart';
 import 'package:eat_together/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,11 @@ class HomePage extends GetView<HomeController> {
           () => controller.isRefreshing.value
             ? Loading(title: '주변 500m 안에 있는 "같이 먹을래?"를 찾고 있습니다!')
             : _DataListView()
-        )
+        ),
+        floatingActionButton: IconButton(
+          icon: Icon(Icons.create),
+          onPressed: () => Get.toNamed(Routes.createParty),
+        ),
       ),
     );
   }
