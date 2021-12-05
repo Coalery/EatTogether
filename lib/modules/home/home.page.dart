@@ -29,9 +29,10 @@ class HomePage extends GetView<HomeController> {
             ? Loading(title: '주변 500m 안에 있는 "같이 먹을래?"를 찾고 있습니다!')
             : _DataListView()
         ),
-        floatingActionButton: IconButton(
-          icon: Icon(Icons.create),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.create),
           onPressed: () => Get.toNamed(Routes.createParty),
+          backgroundColor: Constant.mainColor,
         ),
       ),
     );
