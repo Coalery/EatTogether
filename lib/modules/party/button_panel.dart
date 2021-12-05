@@ -22,7 +22,6 @@ class PartyPageButtonPanel extends GetView<PartyController> {
     } else {
       result = _ButtonForNotParticipated(); 
     }
-    result = _ButtonForHost();
 
     return SizedBox(
       width: Get.width - 16.0 - 16.0 - 16.0 - 50.0,
