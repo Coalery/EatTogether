@@ -85,7 +85,7 @@ class _ButtonForParticipated extends GetView<PartyController> {
           fontWeight: FontWeight.bold
         ),
       ),
-      onPressed: () => controller.cancelParticipate,
+      onPressed: controller.cancelParticipate,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Constant.mainColor),
         shape: MaterialStateProperty.all(
@@ -177,7 +177,7 @@ class _ButtonForHost extends GetView<PartyController> {
           fontWeight: FontWeight.bold
         ),
       ),
-      onPressed: () => controller.cancelParty,
+      onPressed: controller.cancelParty,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
           Constant.mainColor.withOpacity(

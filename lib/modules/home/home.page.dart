@@ -31,7 +31,10 @@ class HomePage extends GetView<HomeController> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.create),
-          onPressed: () => Get.toNamed(Routes.createParty),
+          onPressed: () async {
+            await Get.toNamed(Routes.createParty);
+            await controller.getPartyNear500m();
+          },
           backgroundColor: Constant.mainColor,
         ),
       ),
