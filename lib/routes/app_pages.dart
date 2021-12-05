@@ -1,6 +1,8 @@
+import 'package:eat_together/bindings/create_party.binding.dart';
 import 'package:eat_together/bindings/home.binding.dart';
 import 'package:eat_together/bindings/login.binding.dart';
 import 'package:eat_together/bindings/party.binding.dart';
+import 'package:eat_together/modules/create_party/create_party.page.dart';
 import 'package:eat_together/modules/home/home.page.dart';
 import 'package:eat_together/modules/login/login.page.dart';
 import 'package:eat_together/modules/party/party.page.dart';
@@ -28,6 +30,11 @@ class Pages {
       name: Routes.party,
       page: () => PartyPage(),
       binding: PartyBinding()
+    ),
+    GetPage(
+      name: Routes.createParty,
+      page: () => CreatePartyPage(),
+      binding: CreatePartyBinding()
     )
   ];
 }

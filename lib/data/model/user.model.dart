@@ -16,7 +16,7 @@ class User {
       id: json['id'],
       name: json['name'],
       point: json['point'],
-      profileUrl: json['profileUrl']
+      profileUrl: json['profileURL']
     );
   }
 }

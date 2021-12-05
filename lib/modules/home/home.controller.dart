@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/repository/party.repository.dart';
 import 'package:geolocator/geolocator.dart';
@@ -32,7 +34,7 @@ class HomeController extends GetxController {
       curPosition.latitude,
       curPosition.longitude
     );
-    print(response);
+    log(response.toString());
     List<dynamic> rawData = List.from(response['data']);
     data = rawData.map((rawParty) => Party.fromJson(rawParty)).toList();
     isRefreshing(false);

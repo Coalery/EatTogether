@@ -22,7 +22,6 @@ class PartyPageButtonPanel extends GetView<PartyController> {
     } else {
       result = _ButtonForNotParticipated(); 
     }
-    result = _ButtonForHost();
 
     return SizedBox(
       width: Get.width - 16.0 - 16.0 - 16.0 - 50.0,
@@ -86,7 +85,7 @@ class _ButtonForParticipated extends GetView<PartyController> {
           fontWeight: FontWeight.bold
         ),
       ),
-      onPressed: () => controller.cancelParticipate,
+      onPressed: controller.cancelParticipate,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Constant.mainColor),
         shape: MaterialStateProperty.all(
@@ -178,7 +177,7 @@ class _ButtonForHost extends GetView<PartyController> {
           fontWeight: FontWeight.bold
         ),
       ),
-      onPressed: () => controller.cancelParty,
+      onPressed: controller.cancelParty,
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
           Constant.mainColor.withOpacity(

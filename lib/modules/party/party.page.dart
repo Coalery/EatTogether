@@ -133,7 +133,7 @@ class _ParticipantList extends GetView<PartyController> {
           ),
         ),
         _ParticipantItem(participant: party.host, isHost: true),
-        ...party.participants.map(
+        ...party.participants.where((part) => part.user.id != party.hostId).map(
           (participant) => _ParticipantItem(
             participant: participant,
           )

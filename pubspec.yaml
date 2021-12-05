@@ -20,6 +20,8 @@ dependencies:
   geolocator: ^7.7.1
   pull_to_refresh: ^2.0.0
   intl: ^0.17.0
+  naver_map_plugin:
+    git: https://github.com/LBSTECH/naver_map_plugin.git
 
 dev_dependencies:
   flutter_test:
