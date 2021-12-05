@@ -15,7 +15,7 @@ class Party {
   final bool usedFirstMessage;
   final bool usedSecondMessage;
   final DateTime? otherMessageUsedDate;
-  final Participant host;
+  final String hostId;
   final List<Participant> participants;
 
   Party({
@@ -32,7 +32,7 @@ class Party {
     required this.usedFirstMessage,
     required this.usedSecondMessage,
     this.otherMessageUsedDate,
-    required this.host,
+    required this.hostId,
     this.participants = const []
   });
 
@@ -51,7 +51,7 @@ class Party {
       usedFirstMessage: json['usedFirstMessage'],
       usedSecondMessage: json['usedSecondMessage'],
       otherMessageUsedDate: DateTime.tryParse(json['otherMessageUsedDate'] ?? ''),
-      host: Participant.fromJson(json['host']),
+      hostId: json['hostId'],
       participants: List.from(
         json['participate'] ?? []
       ).map((v) => Participant.fromJson(v)).toList()
@@ -63,8 +63,10 @@ class Party {
   bool get isSuccess => state == "success";
   bool get isCancel => state == "canceled";
 
+  Participant get host => participants.firstWhere((part) => part.user.id == hostId);
+
   bool isHost(User user) {
-    return host.user.id == user.id;
+    return hostId == user.id;
   }
 
   bool isParticipated(User user) {
