@@ -2,7 +2,9 @@
     package="com.coalery.eat_together">
    <application
         android:label="같이먹을래?"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+    >
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

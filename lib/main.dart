@@ -1,9 +1,11 @@
+import 'package:eat_together/main.mapper.g.dart';
 import 'package:eat_together/routes/app_pages.dart';
 import 'package:eat_together/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+  initializeJsonMapper();
   runApp(EatTogetherApp());
 }
 
