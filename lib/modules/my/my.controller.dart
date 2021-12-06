@@ -1,6 +1,7 @@
 import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/model/user.model.dart';
 import 'package:eat_together/data/repository/user.repository.dart';
+import 'package:eat_together/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class MyPageController extends GetxController {
@@ -28,5 +29,13 @@ class MyPageController extends GetxController {
       .map((party) => Party.fromJson(party))
       .toList();
     isLoading(false);
+  }
+
+  Future<void> chargePoint() async {
+    Map<String, String> result = await Get.toNamed(Routes.purchaseReady);
+    if(result['imp_success'] == 'true') {
+      Get.snackbar('결제 성공!', '포인트가 충전되었습니다.');
+    }
+    await getUser();
   }
 }

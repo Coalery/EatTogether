@@ -54,32 +54,55 @@ class _UserProfile extends GetView<MyPageController> {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ProfileImage(
-            profileUrl: user.profileUrl,
-            radius: 20.0,
-          ),
-          SizedBox(width: 16.0),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
-              Text(
-                user.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
+              ProfileImage(
+                profileUrl: user.profileUrl,
+                radius: 20.0,
               ),
-              SizedBox(height: 4.0),
-              Text(
-                '포인트 : ${user.point}',
-                style: TextStyle(
-                  color: Constant.mainColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              SizedBox(width: 16.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user.name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(height: 4.0),
+                  Text(
+                    '포인트 : ${user.point}',
+                    style: TextStyle(
+                      color: Constant.mainColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )
             ],
+          ),
+          TextButton(
+            child: Text(
+              '포인트 충전',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            onPressed: controller.chargePoint,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Constant.mainColor),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                )
+              )
+            ),
           )
         ],
       ),
