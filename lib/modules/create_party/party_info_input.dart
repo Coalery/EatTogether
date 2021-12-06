@@ -18,6 +18,7 @@ class PartyInfoInput extends GetView<CreatePartyController> {
               children: [
                 _InputUnit(
                   controller: controller.titleController,
+                  enabled: !controller.isEditMode,
                   title: '같이 먹을래의 제목',
                   validator: (val) {
                     if(val == null || val.isEmpty) return '제목을 입력해주세요.'; 
@@ -33,6 +34,7 @@ class PartyInfoInput extends GetView<CreatePartyController> {
                 SizedBox(height: 16.0),
                 _InputUnit(
                   controller: controller.restuarantController,
+                  enabled: !controller.isEditMode,
                   title: '시킬 가게',
                   subTitle: '누구나 가게를 특정할 수 있도록 써주세요!\nex) OO동 OO치킨, OO마트 앞 OO버거',
                   validator: (val) {
@@ -84,13 +86,15 @@ class _InputUnit extends StatelessWidget {
   final String? Function(String?) validator;
   final TextEditingController controller;
   final TextInputType inputType;
+  final bool enabled;
 
   _InputUnit({
     required this.title,
     this.subTitle,
     required this.validator,
     required this.controller,
-    this.inputType = TextInputType.text
+    this.inputType = TextInputType.text,
+    this.enabled = true
   });
 
   @override
@@ -109,6 +113,7 @@ class _InputUnit extends StatelessWidget {
           )
         },
         TextFormField(
+          enabled: enabled,
           controller: controller,
           validator: validator,
           keyboardType: inputType,
@@ -119,6 +124,9 @@ class _InputUnit extends StatelessWidget {
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black.withOpacity(0.1))
             ),
+          ),
+          style: TextStyle(
+            color: enabled ? null : Colors.grey
           ),
           cursorColor: Constant.mainColor,
         )

@@ -9,7 +9,7 @@ class MeetLocationSelector extends GetView<CreatePartyController> {
     return Obx(() => Stack(
       children: <Widget>[
         NaverMap(
-          onMapTap: controller.onMapTap,
+          onMapTap: controller.createMarker,
           markers: [
             if(controller.marker.value != null) ... {
               controller.marker.value!
