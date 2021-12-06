@@ -22,7 +22,13 @@ class HomePage extends GetView<HomeController> {
             )
           ),
           centerTitle: true,
-          title: Image.asset('assets/logo_transparent.png', width: 64)
+          title: Image.asset('assets/logo_transparent.png', width: 64),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.person),
+              onPressed: () => Get.toNamed(Routes.mypage)
+            )
+          ],
         ),
         body: Obx(
           () => controller.isRefreshing.value
