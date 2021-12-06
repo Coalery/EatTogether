@@ -60,7 +60,7 @@ class ApiClient {
         'Content-Type': 'application/json',
         ...(headers ?? {})
       },
-      body: body,
+      body: jsonEncode(body),
       encoding: encoding
     ));
   }

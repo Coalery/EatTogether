@@ -35,6 +35,6 @@ class Pages {
       name: Routes.createParty,
       page: () => CreatePartyPage(),
       binding: CreatePartyBinding()
-    )
+    ),
   ];
 }

@@ -22,6 +22,7 @@ class PartyPageButtonPanel extends GetView<PartyController> {
     } else {
       result = _ButtonForNotParticipated(); 
     }
+    result = _ButtonForHost();
 
     return SizedBox(
       width: Get.width - 16.0 - 16.0 - 16.0 - 50.0,
@@ -168,28 +169,58 @@ class _ButtonForHost extends GetView<PartyController> {
   }
 
   Widget _buildWhenParticipating(Party party, User me) {
-    return TextButton(
-      child: Text(
-        '모집 취소하기',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold
+    return Row(
+      children: [
+        Expanded(
+          child: TextButton(
+            child: Text(
+              '모집 취소하기',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            onPressed: controller.cancelParty,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Constant.mainColor.withOpacity(
+                  party.isParticipating ? 1.0 : 0.4
+                )
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                )
+              )
+            ),
+          ),
         ),
-      ),
-      onPressed: controller.cancelParty,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          Constant.mainColor.withOpacity(
-            party.isParticipating ? 1.0 : 0.4
-          )
-        ),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0)
+        SizedBox(width: 16.0),
+        Expanded(
+          child: TextButton(
+            child: Text(
+              '수정하기',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            onPressed: controller.editParty,
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Constant.mainColor
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0)
+                )
+              )
+            ),
           )
         )
-      ),
+      ]
     );
   }
 

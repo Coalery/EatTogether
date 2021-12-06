@@ -2,6 +2,7 @@ import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/repository/party.repository.dart';
 import 'package:eat_together/global/auth.controller.dart';
 import 'package:eat_together/modules/party/amount_selector.dart';
+import 'package:eat_together/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -81,5 +82,10 @@ class PartyController extends GetxController {
     if(party.value!.hostId != auth.me.value!.id) return;
     await partyRepository.cancelParty(party.value!.id);
     Get.back();
+  }
+
+  Future<void> editParty() async {
+    await Get.toNamed(Routes.createParty);
+    await getParty();
   }
 }

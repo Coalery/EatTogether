@@ -1,4 +1,6 @@
+import 'package:eat_together/data/model/party.model.dart';
 import 'package:eat_together/data/repository/party.repository.dart';
+import 'package:eat_together/modules/party/party.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -15,9 +17,26 @@ class CreatePartyController extends GetxController {
 
   final PartyRepository partyRepository;
 
+  late bool isEditMode;
+
   CreatePartyController({
     required this.partyRepository
   });
+
+  @override
+  void onInit() {
+    super.onInit();
+    
+    if(Get.isRegistered<PartyController>()) {
+      isEditMode = true;
+      Party target = Get.find<PartyController>().party.value!;
+      titleController.text = target.title;
+      descsriptionController.text = target.description ?? '';
+      restuarantController.text = target.restuarant;
+      goalPriceController.text = target.goalPrice.toString();
+      createMarker(LatLng(target.meetLatitude, target.meetLongitude));
+    }
+  }
 
   @override
   void onClose() {
@@ -39,7 +58,7 @@ class CreatePartyController extends GetxController {
     }
   }
 
-  void onMapTap(LatLng  latLng) {
+  void createMarker(LatLng  latLng) {
     marker(Marker(
       markerId: DateTime.now().toIso8601String(),
       position: latLng,
@@ -47,7 +66,13 @@ class CreatePartyController extends GetxController {
       onMarkerTab: (marker, _) async {
         if(marker == null) return;
 
-        bool isSuccess = await createParty();
+        bool isSuccess = false;
+        if(isEditMode) {
+          isSuccess = await editParty();
+        } else {
+          isSuccess = await createParty();
+        }
+
         if(isSuccess) {
           Get.back();
         } else {
@@ -69,6 +94,20 @@ class CreatePartyController extends GetxController {
       restuarant: restuarantController.text,
       meetLocation: marker.value!.position,
       goalPrice: int.parse(goalPriceController.text)
+    );
+
+    return response['code'] == 200;
+  }
+  
+  Future<bool> editParty() async {
+    Party party = Get.find<PartyController>().party.value!;
+    String description = descsriptionController.text;
+
+    dynamic response = await partyRepository.edit(
+      partyId: party.id,
+      description: description.isEmpty ? null : description,
+      goalPrice: int.parse(goalPriceController.text),
+      meetLocation: marker.value!.position
     );
 
     return response['code'] == 200;

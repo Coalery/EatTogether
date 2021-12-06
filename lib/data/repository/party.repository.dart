@@ -22,6 +22,20 @@ class PartyRepository {
     });
   }
 
+  Future<dynamic> edit({
+    required int partyId,
+    String? description,
+    required int goalPrice,
+    required LatLng meetLocation,
+  }) {
+    return client.put('/party/$partyId', body: {
+      'description': description,
+      'meetLatitude': meetLocation.latitude,
+      'meetLongitude': meetLocation.longitude,
+      'goalPrice': goalPrice
+    });
+  }
+
   Future<dynamic> getPartyById(int id) {
     return client.get('/party/$id');
   }
