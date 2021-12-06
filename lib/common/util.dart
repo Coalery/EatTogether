@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String untilTime(DateTime targetTime) {
@@ -28,6 +30,26 @@ String untilTime(DateTime targetTime) {
   else { result = '$minute분 전'; }
 
   return result;
+}
+
+Color colorByState(String state) {
+  switch(state) {
+    case 'participating': return Colors.cyan[300]!;
+    case 'gather-complete': return Colors.yellow;
+    case 'success': return Colors.green;
+    case 'canceled': return Colors.red;
+    default: return Colors.black;
+  }
+}
+
+String stateNameByState(String state) {
+  switch(state) {
+    case 'participating': return '참여 가능';
+    case 'gather-complete': return '모집 완료';
+    case 'success': return '성공';
+    case 'canceled': return '취소됨';
+    default: return '?';
+  }
 }
 
 String toCurrencyString(int v) {
