@@ -45,9 +45,6 @@ class AppInitialize {
   }
 
   Future<void> _fcmInit() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print(token);
-
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
 
