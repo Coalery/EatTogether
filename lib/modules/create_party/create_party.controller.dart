@@ -17,7 +17,7 @@ class CreatePartyController extends GetxController {
 
   final PartyRepository partyRepository;
 
-  late bool isEditMode;
+  bool isEditMode = false;
 
   CreatePartyController({
     required this.partyRepository
