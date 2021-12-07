@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:eat_together/data/model/user.model.dart' as u;
 import 'package:eat_together/data/provider/api_client.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -18,6 +19,12 @@ class AuthController extends GetxController {
       print(token);
 
       dynamic response = await ApiClient().get('/user');
+      if(response['code'] == 400) {
+        await ApiClient().post('/user', body: {
+          'fcmToken': await FirebaseMessaging.instance.getToken()
+        });
+      }
+
       me(u.User.fromJson(response['data']));
       
       if(!firstRequestFinished.isCompleted) {

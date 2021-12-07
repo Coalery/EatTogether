@@ -25,6 +25,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   iamport_flutter: ^0.10.0-dev.6
   dart_json_mapper:
+  firebase_messaging: ^11.2.0
 
 dev_dependencies:
   flutter_test:
